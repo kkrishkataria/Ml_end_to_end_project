@@ -1,4 +1,6 @@
 import sys
+from src.logger import logging
+
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb=error_detail.exc_info() # first 2 info not needed exc_tb that is exception 
     # traceback is required for exception features like line no and file name where occured
@@ -20,4 +22,5 @@ class CustomException(Exception):
 #     try:
 #         a=1/0
 #     except Exception as e:
+#         logging.info("Divide by zero")
 #         raise CustomException(e,sys)

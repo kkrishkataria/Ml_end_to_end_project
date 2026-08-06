@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 log_path=os.path.join(os.getcwd(),"logs")
-os.makedirs(log_path,exist_ok=True) # if still log file exist still make it
+os.makedirs(log_path,exist_ok=True) # if logs folder is not present then create it otherwise do nothing
 LOG_FILE_PATH=os.path.join(log_path,LOG_FILE)
 
 logging.basicConfig(
