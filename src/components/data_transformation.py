@@ -68,18 +68,21 @@ class DataTransformation:
             numerical_columns = ["writing_score", "reading_score"]
 
             input_features_train_df=train_df.drop(columns=target_column,axis=1)
+            target_feature_train_df=train_df[target_column]
             input_features_test_df=test_df.drop(columns=target_column,axis=1)
+            target_feature_test_df=test_df[target_column]
+
             logging.info('Applying Preproceesor object on Training and Test Dataframes !')
 
             input_features_train_arr=preprocessing_obj.fit_transform(input_features_train_df)
             input_features_test_arr=preprocessing_obj.transform(input_features_test_df)
 
             train_arr=np.c_[ # for concatination 
-                input_features_train_arr,np.array(input_features_train_df)
+                input_features_train_arr,np.array(target_feature_train_df)
             ]
 
             test_arr=np.c_[ # for concatination 
-                input_features_test_arr,np.array(input_features_test_df)
+                input_features_test_arr,np.array(target_feature_test_df)
             ]
 
             logging.info('Saved Preprocesed Object !')
@@ -89,7 +92,7 @@ class DataTransformation:
                 obj=preprocessing_obj
             )
             return (
-                train_arr,test_arr,self.data_trans_config.preprocessor_obj_file
+                train_arr,test_arr
             )
         except Exception as e:
             raise CustomException(e,sys)
