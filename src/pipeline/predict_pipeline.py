@@ -7,17 +7,39 @@ from src.utils import load_obj
 class PredictPipeline:
     def __init__(self):
         pass
-    def predict_data(self,features):
+    def predict_data(self, features):
         try:
-            model_path='artifacts/model.pkl'
-            preprocessor_path='artifacts/preprocessor.pkl'
-            model=load_obj(file_path=model_path)
-            preprocessor=load_obj(file_path=preprocessor_path)
-            data_scaled=preprocessor.transform(features)
-            pred_data=model.predict(data_scaled)
+            model_path = 'artifacts/model.pkl'
+            preprocessor_path = 'artifacts/preprocessor.pkl'
+
+            print("Loading model:", model_path)
+            print("Loading preprocessor:", preprocessor_path)
+
+            model = load_obj(file_path=model_path)
+            preprocessor = load_obj(file_path=preprocessor_path)
+
+            print("Model loaded successfully")
+            print("Preprocessor loaded successfully")
+            print("Input data:")
+            print(features)
+
+            data_scaled = preprocessor.transform(features)
+
+            print("Data transformed successfully")
+
+            pred_data = model.predict(data_scaled)
+
+            print("Prediction:", pred_data)
+
             return pred_data
+
         except Exception as e:
-            raise CustomException(e,sys)
+            print("========== PREDICTION ERROR ==========")
+            print(repr(e))
+            import traceback
+            traceback.print_exc()
+            print("======================================")
+            raise
 
 class CustomData:
     def __init__(  self,
